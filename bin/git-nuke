@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Nukes a branch locally and on the origin remote.
+#
+# $1 - Branch name.
+#
+# Examples
+#
+# git nuke add-git-nuke
+
+echo "deleting local branch..."
+echo "cmd: git branch -D $1"
+git branch -D $1
+
+echo "deleting remote branch..."
+echo "cmd: git push origin :$1"
+git push origin :$1

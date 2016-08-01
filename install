@@ -1,0 +1,101 @@
+#!/bin/bash
+
+echo ''
+
+info () {
+  printf "  [ \033[00;34m..\033[0m ] $1\n"
+}
+user () {
+  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+}
+success () {
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+fail () {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  echo ''
+  exit
+}
+
+
+gemrc=~/.gemrc
+if [ -f "$gemrc" ]; then
+  info "backing up existing .gemrc"
+  mv $gemrc $gemrc.bckp
+  success "backed up .gemrc"
+fi
+ln -s `pwd`/lib/gemrc.symlink $gemrc
+success "setup .gemrc"
+echo ''
+
+
+irbrc=~/.irbrc
+if [ -f "$irbrc" ]; then
+  info "backing up existing .irbrc"
+  mv $irbrc $irbrc.bckp
+  success "backed up .irbrc"
+fi
+ln -s `pwd`/lib/irbrc.symlink $irbrc
+success "setup .irbrc"
+echo ''
+
+
+gitignore=~/.gitignore
+if [ -f "$gitignore" ]; then
+  info "backing up existing ~/.gitignore"
+  mv $gitignore $gitignore.bckp
+  success "backed up .gitignore"
+fi
+ln -s `pwd`/lib/git/gitignore.symlink $gitignore
+success "setup .gitignore"
+echo ''
+
+
+gitconfig=~/.gitconfig
+if [ -f "$gitconfig" ]; then
+  info "backing up existing .gitconfig"
+  mv $gitconfig $gitconfig.bckp
+  success "backed up .gitconfig"
+fi
+user ' - What is your git author name?'
+read -e git_authorname
+user ' - What is your git author email?'
+read -e git_authoremail
+sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" `pwd`/lib/git/gitconfig.symlink.example > $gitconfig
+success "setup gitconfig"
+echo ''
+
+
+if [ $(uname) == 'Darwin' ]
+then
+  bash_profile=~/.bash_profile
+  if [ -f "$bash_profile" ]; then
+    info "backing up existing .bash_profile"
+    mv $bash_profile $bash_profile.bckp
+    success "backed up .bash_profile"
+  fi
+  ln -s `pwd`/bash_profile.symlink $bash_profile
+  . $bash_profile
+  success "setup and sourced .bash_profile"
+else
+  info "Not setting up .bash_profile because this is Linux (not Darwin)."
+fi
+echo ''
+
+
+bashrc=~/.bashrc
+if [ -f "$bashrc" ]; then
+  info "backing up existing .bashrc"
+  mv $bashrc $bashrc.bckp
+  success "backed up .bashrc"
+fi
+ln -s `pwd`/bashrc.symlink $bashrc
+. $bashrc
+success "setup and sourced .bashrc"
+echo ''
+
+
+info "Setup the executables in ./bin/ to ~/bin/"
+mkdir ~/bin
+cp -r `pwd`/bin/* ~/bin/
+success "executables copied to ~/.bin/"

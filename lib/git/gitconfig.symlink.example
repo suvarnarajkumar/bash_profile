@@ -1,0 +1,109 @@
+[user]
+  name = AUTHORNAME
+  email = AUTHOREMAIL
+
+[alias]
+  a = add
+  b = branch
+  ba = branch -a
+  cl = clone
+
+  ### COMMITS
+  # 1. Opens $EDITOR
+  # 2. Review the diff and commit
+  c = commit -v
+  # 1. Auto-stages all modified & deleted files (only tracked files)
+  # 2. Opens $EDITOR
+  # 3. Review the diff and commit
+  ca = commit -v -a
+  cam = commit --amend
+  fix = commit --amend -C HEAD
+
+  co = checkout
+  cp = cherry-pick
+
+  ### DIFFS
+  d = diff
+  dc = diff --cached
+  dd = diff develop
+  dm = diff master
+  dw = diff --word-diff=color
+
+  f = fetch
+
+  m = merge --no-edit
+  mf = merge --ff-only
+  p = push
+  pu = push -u
+  pl = pull
+
+  ### RESETS
+  r = reset
+  rh = reset --hard
+  rs = reset --soft
+
+  ### REBASES
+  rb = rebase
+  rba = rebase --abort
+  rbc = rebase --continue
+  rbi = rebase --ignore
+  rmb = !sh -c 'git branch -d $1 && git push origin :$1' -
+  s = status -s
+
+  ### STASHES
+  ss = stash
+  sl = stash list
+  sp = stash pop
+  sa = stash apply
+
+  # list all aliases
+  aliaslist = !sh -c 'git config --list | grep alias'
+  # update local origin branch names
+  brupdate = !sh -c 'git remote update origin --prune'
+
+[push]
+  default = current
+[pull]
+  default = current
+  rebase = true
+[diff]
+  memonicprefix = true
+[branch]
+  autosetupmerge = always
+  autosetuprebase = always
+[apply]
+  whitespace = nowarn
+[log]
+  date = local
+[grep]
+  lineNumber = true
+
+[color]
+  diff = always
+  ui = true
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow
+  frag = magenta bold
+  old = red bold
+  new = green bold
+[color "status"]
+  added = yellow bold
+  changed = green
+  untracked = cyan
+
+[diff]
+  tool = vimdiff
+[difftool]
+  prompt = false
+[content]
+  editor = "vim -w"
+[merge]
+  conflictstyle = diff3
+[core]
+  editor = "vim"
+  excludesfile = ~/.gitignore
+  autocrlf = false

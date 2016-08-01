@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Companion scripts: ./done, ./todo
+
+set -e
+
+if ! [ -f ~/Desktop/todo_* ]
+then
+  ls -1 ~/Desktop/todo_*
+else
+  echo ''
+fi

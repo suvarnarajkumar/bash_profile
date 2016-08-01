@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Taken from https://github.com/holman/dotfiles/blob/master/bin/todo
+
+# A new task is just an aptly named file in the desktop. Once the task is done, 
+# I just delete the file.
+#
+# Companion script: ./did, ./list
+
+set -e
+
+touch ~/Desktop/todo_"$*"
