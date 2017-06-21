@@ -10,5 +10,5 @@ then
 fi
 
 # NVM
-export NVM_DIR="/Users/prasanna/.nvm"
+export NVM_DIR="/home/suvarna/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
